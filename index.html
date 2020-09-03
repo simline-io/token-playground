@@ -70,9 +70,21 @@
         <div class="on-login hidden row">
           <div class="col">
             <h4 class="text-monospace">Token</h4>
-            <pre>
-              <code id="token" class="json"></code>
-            </pre>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button
+                  class="btn btn-dark clipboard"
+                  type="button"
+                  data-clipboard-target="#token"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Copy to clipboard"
+                >
+                  <i class="fas fa-copy" alt="Copy to clipboard"></i>
+                </button>
+              </div>
+              <pre id="token" class="form-control hljs"></pre>
+            </div>
           </div>
         </div>
 
@@ -80,9 +92,7 @@
         <div class="on-login hidden row">
           <div class="col">
             <h4 class="text-monospace">Profile</h4>
-            <pre>
-              <code id="profile-data" class="json"></code>
-            </pre>
+            <pre><code id="profile-data" class="json"></code></pre>
           </div>
         </div>
 
@@ -123,6 +133,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
     <script>
       //Declare helper functions
@@ -275,6 +286,9 @@
 
         updateUI();
       };
+    </script>
+    <script>
+      new ClipboardJS(".clipboard");
     </script>
   </body>
 </html>
