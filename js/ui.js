@@ -1,9 +1,9 @@
 // URL mapping, from hash to a function that responds to that URL action
 const router = {
-  "/": () => showContent("content-home"),
-  "/profile": () =>
+  "/simline-dev-token/": () => showContent("content-home"),
+  "/simline-dev-token/profile": () =>
     requireAuth(() => showContent("content-profile"), "/profile"),
-  "/login": () => login(),
+  "/simline-dev-token/login": () => login(),
 };
 
 //Declare helper functions
