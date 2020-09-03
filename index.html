@@ -141,6 +141,7 @@
           if (isAuthenticated) {
             const accessToken = await auth0.getTokenSilently({
               audience: "https://api.simline.io",
+              redirect_uri: window.location.href
             });
             document.getElementById("token").innerText = accessToken;
 
