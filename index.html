@@ -44,156 +44,222 @@
     </style>
   </head>
 
-  <body class="h-100">
+  <body class="h-100 container">
     <div id="app" class="h-100 d-flex flex-column">
-      <div class="nav-container">
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
-          <div class="container">
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
+      <h4 class="on-load row justify-content-center align-items-center h-100">
+        <i class="fas fa-circle-notch fa-spin mx-2"></i>
+        Loading...
+      </h4>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav d-none d-md-block">
-                <!-- Login button: show if NOT authenticated -->
-                <li class="nav-item auth-invisible">
-                  <button
-                    id="qsLoginBtn"
-                    onclick="login()"
-                    class="btn btn-primary btn-margin auth-invisible hidden"
-                  >
-                    Log in
-                  </button>
-                </li>
-                <!-- / Login button -->
-
-                <!-- Fullsize dropdown: show if authenticated -->
-                <li class="nav-item dropdown auth-visible hidden">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="profileDropDown"
-                    data-toggle="dropdown"
-                  >
-                    <!-- Profile image should be set to the profile picture from the id token -->
-                    <img
-                      alt="Profile picture"
-                      class="nav-user-profile profile-image rounded-circle"
-                      width="50"
-                    />
-                  </a>
-                  <div class="dropdown-menu">
-                    <!-- Show the user's full name from the id token here -->
-                    <div class="dropdown-header nav-user-name user-name"></div>
-                    <a
-                      href="/profile"
-                      class="dropdown-item dropdown-profile route-link"
-                    >
-                      <i class="fas fa-user mr-3"></i> Profile
-                    </a>
-                    <a
-                      href="#"
-                      class="dropdown-item"
-                      id="qsLogoutBtn"
-                      onclick="logout()"
-                    >
-                      <i class="fas fa-power-off mr-3"></i> Log out
-                    </a>
-                  </div>
-                </li>
-                <!-- /Fullsize dropdown -->
-              </ul>
-
-              <!-- Responsive login button: show if NOT authenticated -->
-              <ul class="navbar-nav d-md-none auth-invisible">
-                <button
-                  class="btn btn-primary btn-block auth-invisible hidden"
-                  id="qsLoginBtn"
-                  onclick="login()"
-                >
-                  Log in
-                </button>
-              </ul>
-              <!-- /Responsive login button -->
-
-              <!-- Responsive profile dropdown: show if authenticated -->
-              <ul
-                class="navbar-nav d-md-none auth-visible hidden justify-content-between"
-                style="min-height: 125px"
-              >
-                <li class="nav-item">
-                  <span class="user-info">
-                    <!-- Profile image should be set to the profile picture from the id token -->
-                    <img
-                      alt="Profile picture"
-                      class="nav-user-profile d-inline-block profile-image rounded-circle mr-3"
-                      width="50"
-                    />
-                    <!-- Show the user's full name from the id token here -->
-                    <h6 class="d-inline-block nav-user-name user-name"></h6>
-                  </span>
-                </li>
-                <li>
-                  <i class="fas fa-user mr-3"></i>
-                  <a href="/profile" class="route-link">Profile</a>
-                </li>
-
-                <li>
-                  <i class="fas fa-power-off mr-3"></i>
-                  <a href="#" id="qsLogoutBtn" onclick="logout()">Log out</a>
-                </li>
-              </ul>
-            </div>
+      <!-- Avatar + Username -->
+      <div class="flex-grow-1">
+        <div class="on-login hidden row align-items-center my-5">
+          <div class="col-md-2">
+            <img
+              alt="User's profile picture"
+              class="rounded-circle img-fluid profile-image mb-3 mb-md-0"
+            />
           </div>
-        </nav>
-      </div>
-
-      <div id="main-content" class="container mt-5 flex-grow-1">
-        <div id="content-home" class="page">
-          <div class="text-center hero">
-            <code id="token"> </code>
+          <div class="col-md">
+            <h2 class="user-name"></h2>
+            <p class="lead text-muted user-email"></p>
           </div>
         </div>
 
-        <div class="page" id="content-profile">
-          <div class="container">
-            <div class="row align-items-center profile-header">
-              <div class="col-md-2">
-                <img
-                  alt="User's profile picture"
-                  class="rounded-circle img-fluid profile-image mb-3 mb-md-0"
-                />
-              </div>
-              <div class="col-md">
-                <h2 class="user-name"></h2>
-                <p class="lead text-muted user-email"></p>
-              </div>
-            </div>
+        <!-- Token -->
+        <div class="on-login hidden row">
+          <h4 class="text-monospace">Token</h4>
+          <pre>
+            <code id="token" class="json"></code>
+          </pre>
+        </div>
 
-            <div class="row">
-              <pre class="rounded">
-                <code id="profile-data" class="json"></code></pre>
-            </div>
-          </div>
+        <!-- Provile -->
+        <div class="on-login hidden row">
+          <h4 class="text-monospace">Profile</h4>
+          <pre>
+            <code id="profile-data" class="json"></code>
+          </pre>
+        </div>
+
+        <!-- Login -->
+        <div
+          class="on-logout hidden row justify-content-center align-items-center h-100"
+        >
+          <button
+            class="btn btn-primary btn-block btn-lg"
+            id="qsLoginBtn"
+            onclick="login()"
+          >
+            Log in
+          </button>
+        </div>
+        <!-- /Responsive login button -->
+
+        <!-- Logout button -->
+        <div
+          class="on-login hidden row justify-content-center align-items-center"
+        >
+          <button
+            class="btn btn-primary btn-block btn-lg"
+            id="qsLogoutBtn"
+            onclick="logout()"
+          >
+            <i class="fas fa-power-off mr-3"></i>
+            Log out
+          </button>
         </div>
       </div>
-
-      <footer class="bg-light text-center p-5"></footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/app.js"></script>
+    <script>
+      //Declare helper functions
+
+      /**
+       * Iterates over the elements matching 'selector' and passes them
+       * to 'fn'
+       * @param {*} selector The CSS selector to find
+       * @param {*} fn The function to execute for every element
+       */
+      const eachElement = (selector, fn) => {
+        for (let e of document.querySelectorAll(selector)) {
+          fn(e);
+        }
+      };
+
+      /**
+       * Updates the user interface
+       */
+      const updateUI = async () => {
+        try {
+          const isAuthenticated = await auth0.isAuthenticated();
+
+          if (isAuthenticated) {
+            const accessToken = await auth0.getTokenSilently({
+              audience: "https://api.simline.io",
+            });
+            document.getElementById("token").innerText = accessToken;
+
+            const user = await auth0.getUser();
+
+            document.getElementById("profile-data").innerText = JSON.stringify(
+              user,
+              null,
+              2
+            );
+
+            document.querySelectorAll("pre code").forEach(hljs.highlightBlock);
+
+            eachElement(".on-load", (e) => e.classList.add("hidden"));
+            eachElement(".profile-image", (e) => (e.src = user.picture));
+            eachElement(".user-name", (e) => (e.innerText = user.name));
+            eachElement(".user-email", (e) => (e.innerText = user.email));
+            eachElement(".on-logout", (e) => e.classList.add("hidden"));
+            eachElement(".on-login", (e) => e.classList.remove("hidden"));
+          } else {
+            eachElement(".on-load", (e) => e.classList.add("hidden"));
+            eachElement(".on-logout", (e) => e.classList.remove("hidden"));
+            eachElement(".on-login", (e) => e.classList.add("hidden"));
+          }
+        } catch (err) {
+          console.log("Error updating UI!", err);
+          return;
+        }
+
+        console.log("UI updated");
+      };
+    </script>
+    <script>
+      // The Auth0 client, initialized in configureClient()
+      let auth0 = null;
+
+      /**
+       * Starts the authentication flow
+       */
+      const login = async (targetUrl) => {
+        try {
+          console.log("Logging in", targetUrl);
+
+          const options = {
+            redirect_uri: window.location.href,
+          };
+
+          if (targetUrl) {
+            options.appState = { targetUrl };
+          }
+
+          await auth0.loginWithRedirect(options);
+        } catch (err) {
+          console.log("Log in failed", err);
+        }
+      };
+
+      /**
+       * Executes the logout flow
+       */
+      const logout = () => {
+        try {
+          console.log("Logging out");
+          auth0.logout({
+            returnTo: window.location.href,
+          });
+        } catch (err) {
+          console.log("Log out failed", err);
+        }
+      };
+
+      /**
+       * Retrieves the auth configuration from the server
+       */
+      const fetchAuthConfig = () => fetch("auth_config.json");
+
+      /**
+       * Initializes the Auth0 client
+       */
+      const configureClient = async () => {
+        const response = await fetchAuthConfig();
+        const config = await response.json();
+
+        auth0 = await createAuth0Client({
+          domain: config.domain,
+          client_id: config.clientId,
+        });
+      };
+
+      // Will run when page finishes loading
+      window.onload = async () => {
+        await configureClient();
+
+        const isAuthenticated = await auth0.isAuthenticated();
+
+        if (isAuthenticated) {
+          console.log("> User is authenticated");
+          updateUI();
+          return;
+        }
+
+        console.log("> User not authenticated");
+
+        const query = window.location.search;
+        const shouldParseResult =
+          query.includes("code=") && query.includes("state=");
+
+        if (shouldParseResult) {
+          console.log("> Parsing redirect");
+          try {
+            const result = await auth0.handleRedirectCallback();
+            console.log("Logged in!");
+          } catch (err) {
+            console.log("Error parsing redirect:", err);
+          }
+        }
+
+        updateUI();
+      };
+    </script>
   </body>
 </html>
