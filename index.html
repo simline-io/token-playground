@@ -251,7 +251,10 @@
         if (shouldParseResult) {
           console.log("> Parsing redirect");
           try {
-            const result = await auth0.handleRedirectCallback();
+            const result = await auth0.handleRedirectCallback(
+              window.location.pathname
+            );
+            window.history.replaceState({}, document.title, window.location.pathname);
             console.log("Logged in!");
           } catch (err) {
             console.log("Error parsing redirect:", err);
