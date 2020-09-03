@@ -68,31 +68,37 @@
 
         <!-- Token -->
         <div class="on-login hidden row">
-          <h4 class="text-monospace">Token</h4>
-          <pre>
-            <code id="token" class="json"></code>
-          </pre>
+          <div class="col">
+            <h4 class="text-monospace">Token</h4>
+            <pre>
+              <code id="token" class="json"></code>
+            </pre>
+          </div>
         </div>
 
         <!-- Provile -->
         <div class="on-login hidden row">
-          <h4 class="text-monospace">Profile</h4>
-          <pre>
-            <code id="profile-data" class="json"></code>
-          </pre>
+          <div class="col">
+            <h4 class="text-monospace">Profile</h4>
+            <pre>
+              <code id="profile-data" class="json"></code>
+            </pre>
+          </div>
         </div>
 
         <!-- Login -->
         <div
           class="on-logout hidden row justify-content-center align-items-center h-100"
         >
-          <button
-            class="btn btn-primary btn-block btn-lg"
-            id="qsLoginBtn"
-            onclick="login()"
-          >
-            Log in
-          </button>
+          <div class="col">
+            <button
+              class="btn btn-primary btn-block btn-lg"
+              id="qsLoginBtn"
+              onclick="login()"
+            >
+              Log in
+            </button>
+          </div>
         </div>
         <!-- /Responsive login button -->
 
@@ -100,14 +106,16 @@
         <div
           class="on-login hidden row justify-content-center align-items-center"
         >
-          <button
-            class="btn btn-primary btn-block btn-lg"
-            id="qsLogoutBtn"
-            onclick="logout()"
-          >
-            <i class="fas fa-power-off mr-3"></i>
-            Log out
-          </button>
+          <div class="col">
+            <button
+              class="btn btn-primary btn-block btn-lg"
+              id="qsLogoutBtn"
+              onclick="logout()"
+            >
+              <i class="fas fa-power-off mr-3"></i>
+              Log out
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -254,7 +262,11 @@
             const result = await auth0.handleRedirectCallback(
               window.location.pathname
             );
-            window.history.replaceState({}, document.title, window.location.pathname);
+            window.history.replaceState(
+              {},
+              document.title,
+              window.location.pathname
+            );
             console.log("Logged in!");
           } catch (err) {
             console.log("Error parsing redirect:", err);
