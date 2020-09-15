@@ -6,7 +6,7 @@
     <title>Simline Token Generator</title>
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
     <link
       rel="stylesheet"
@@ -14,20 +14,20 @@
     />
     <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css"
+      href="//use.fontawesome.com/releases/v5.7.2/css/solid.css"
       integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B"
       crossorigin="anonymous"
     />
     <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
+      href="//use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
       integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+"
       crossorigin="anonymous"
     />
 
     <link
       rel="stylesheet"
-      href="https://cdn.auth0.com/js/auth0-samples-theme/1.0/css/auth0-theme.min.css"
+      href="//cdn.auth0.com/js/auth0-samples-theme/1.0/css/auth0-theme.min.css"
     />
     <style>
       .hidden {
@@ -88,7 +88,15 @@
           </div>
         </div>
 
-        <!-- Provile -->
+        <!-- Payload -->
+        <div class="on-login hidden row">
+          <div class="col">
+            <h4 class="text-monospace">Payload</h4>
+            <pre><code id="payload-data" class="json"></code></pre>
+          </div>
+        </div>
+
+        <!-- Profile -->
         <div class="on-login hidden row">
           <div class="col">
             <h4 class="text-monospace">Profile</h4>
@@ -130,10 +138,10 @@
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
     <script>
       //Declare helper functions
@@ -148,6 +156,21 @@
         for (let e of document.querySelectorAll(selector)) {
           fn(e);
         }
+      };
+
+      const parseJwt = (token) => {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+
+        return JSON.parse(jsonPayload);
       };
 
       /**
@@ -165,6 +188,12 @@
 
             document.getElementById("profile-data").innerText = JSON.stringify(
               user,
+              null,
+              2
+            );
+
+            document.getElementById("payload-data").innerText = JSON.stringify(
+              parseJwt(accessToken),
               null,
               2
             );
